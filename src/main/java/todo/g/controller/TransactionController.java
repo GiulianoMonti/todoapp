@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import todo.g.model.Transaction;
-import todo.service.ITransactionService;
+import todo.g.service.ITransactionService;
 
 import javax.validation.Valid;
 

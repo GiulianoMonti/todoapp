@@ -1,15 +1,9 @@
-package todo.g.service.impl;
+package todo.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import todo.g.dto.UserDtoRequest;
+import todo.g.dto.SignUpDto;
 import todo.g.dto.UserDtoResponse;
 import todo.g.model.Role;
 import todo.g.model.User;
@@ -35,15 +29,10 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private JwtTokenProvider tokenProvider;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    UserDetailsService userDetailsService;
 
     @Override
-    public UserDtoResponse registerUser(UserDtoRequest dto) {
-        User userToSave = new User();
+    public UserDtoResponse registerUser(SignUpDto dto) {
+        User userToSave = SignUpDto.dtoToUser(dto);
 
         userToSave.setName(dto.getName());
         userToSave.setUsername(dto.getUsername());
@@ -58,18 +47,6 @@ public class UserServiceImpl implements IUserService {
         return UserDtoResponse.UserToDto(user);
 
     }
-
-//    private String loginUserRegister(UserDtoRequest userDtoRequest) {
-//        Authentication authentication =
-//                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDtoRequest.getEmail(), userDtoRequest.getPassword()));
-//
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        final UserDetails userDetails =
-//                userDetailsService.loadUserByUsername(userDtoRequest.getEmail());
-//
-//        return jwtUtil.generateToken(userDetails);
-//    }
 
 
 }

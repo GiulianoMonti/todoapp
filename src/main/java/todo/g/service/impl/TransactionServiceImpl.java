@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import todo.g.model.Transaction;
 import todo.g.repository.TransactionRepository;
-import todo.service.ITransactionService;
+import todo.g.service.ITransactionService;
 
 
 @Service
