@@ -15,15 +15,16 @@ import javax.validation.Valid;
 @RestController
 @CrossOrigin
 @Slf4j
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 public class TransactionController {
 
     @Autowired
     ITransactionService iTransactionService;
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
+    @PostMapping("/add")
     public ResponseEntity<?> createTransaction(@Valid @RequestBody(required = true) Transaction transaction) {
 
         return new ResponseEntity<>(iTransactionService.createTransaction(transaction), HttpStatus.CREATED);
