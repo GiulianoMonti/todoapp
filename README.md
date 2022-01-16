@@ -16,3 +16,8 @@ react usando context y hooks para el front, no lo subire todavia
 
 <div>login manda usuario, logout null al context user </div>
 <img src ="src/images/screen5.png" width="500">
+
+<div></div>
+<div>logged in, ADD transactions page, token localstorage+username</div>
+<img src ="src/images/transactions.png" width="500">
+
