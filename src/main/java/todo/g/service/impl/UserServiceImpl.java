@@ -3,7 +3,7 @@ package todo.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import todo.g.dto.SignUpDto;
+import todo.g.dto.UserDtoRequest;
 import todo.g.dto.UserDtoResponse;
 import todo.g.model.Role;
 import todo.g.model.User;
@@ -31,8 +31,8 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public UserDtoResponse registerUser(SignUpDto dto) {
-        User userToSave = SignUpDto.dtoToUser(dto);
+    public UserDtoResponse registerUser(UserDtoRequest dto) {
+        User userToSave = UserDtoRequest.dtoToUser(dto);
 
         userToSave.setName(dto.getName());
         userToSave.setUsername(dto.getUsername());

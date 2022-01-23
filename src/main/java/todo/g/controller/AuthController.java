@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import todo.g.dto.JWTAuthResponse;
 import todo.g.dto.LoginDto;
-import todo.g.dto.SignUpDto;
+import todo.g.dto.UserDtoRequest;
 import todo.g.model.Role;
 import todo.g.model.User;
 import todo.g.repository.RoleRepository;
@@ -48,26 +48,26 @@ public class AuthController {
 
     //    @ApiOperation(value = "REST API to Signin or Login user to Blog app")
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpDto signUpDto) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDtoRequest request) {
 
         // add check for username exist in db
 
-        if (userRepository.existsByUsername(signUpDto.getUsername())) {
+        if (userRepository.existsByUsername(request.getUsername())) {
             return new ResponseEntity<>("Username is already Taken!", HttpStatus.OK);
         }
 
         // add check for email exists in DB
 
-        if (userRepository.existsByEmail(signUpDto.getEmail())) {
+        if (userRepository.existsByEmail(request.getEmail())) {
             return new ResponseEntity<>("Email is already Taken!", HttpStatus.BAD_REQUEST);
         }
         // create user object
 
         User user = new User();
-        user.setName(signUpDto.getName());
-        user.setUsername(signUpDto.getUsername());
-        user.setEmail(signUpDto.getEmail());
-        user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
+        user.setName(request.getName());
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         Role roles = roleRepository.findByName("ROLE_ADMIN").get();
         user.setRoles(Collections.singleton(roles));
@@ -75,7 +75,7 @@ public class AuthController {
         userRepository.save(user);
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                signUpDto.getUsername(), signUpDto.getPassword()));
+                request.getUsername(), request.getPassword()));
         String token = tokenProvider.generateToken(authentication);
         log.info(token);
         return ResponseEntity.ok(new JWTAuthResponse(token,"User Created!"));
