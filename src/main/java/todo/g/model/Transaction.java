@@ -1,5 +1,6 @@
 package todo.g.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,11 @@ public class Transaction {
     private String name;
 
     private int amount;
+
+    @JsonIgnore
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;
 
 
 }

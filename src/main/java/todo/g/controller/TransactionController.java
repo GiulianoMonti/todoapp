@@ -11,6 +11,7 @@ import todo.g.model.Transaction;
 import todo.g.service.ITransactionService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -22,12 +23,26 @@ public class TransactionController {
     ITransactionService iTransactionService;
 
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
 
-    @PostMapping("/add")
-    public ResponseEntity<?> createTransaction(@Valid @RequestBody(required = true) Transaction transaction) {
+//    @PostMapping("/add")
+//    public ResponseEntity<?> createTransactions(@Valid @RequestBody(required = true) Transaction transaction) {
+//
+//        return new ResponseEntity<>(iTransactionService.createTransactions(transaction), HttpStatus.CREATED);
+//    }
 
-        return new ResponseEntity<>(iTransactionService.createTransaction(transaction), HttpStatus.CREATED);
+//        @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //    @ApiOperation(value = "Get All Comments By Post ID REST API")
+    @GetMapping("/transaction/{userId}")
+    //     get all transactions by user id
+    public List<Transaction> getTransactionByUserId(@PathVariable(value = "userId") Long userId) {
+        return iTransactionService.getTransactionByUserId(userId);
+    }
+
+//    @ApiOperation(value = "Create Comment REST API")
+    @PostMapping("/transaction/{userId}")
+    public ResponseEntity<Transaction> createTransaction(@Valid @PathVariable(value = "userId") Long userId,
+                                                    @RequestBody Transaction transaction) {
+        return new ResponseEntity<>(iTransactionService.createTransaction(userId, transaction), HttpStatus.CREATED);
     }
 
 
