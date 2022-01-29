@@ -9,6 +9,6 @@ public interface ITransactionService {
 //    Transaction createTransactions(Transaction transaction);
     List<Transaction> getTransactionByUserId(Long userId);
     Transaction createTransaction(Long userId, Transaction transaction);
-    ;
+//    Transaction createTransactions(Transaction transaction);
 
 }

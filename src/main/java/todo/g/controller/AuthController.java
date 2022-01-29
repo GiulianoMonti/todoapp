@@ -23,6 +23,7 @@ import todo.g.security.JwtTokenProvider;
 
 import javax.validation.Valid;
 import java.util.Collections;
+import java.util.Locale;
 
 //@Api(value = "Auth controller exposes siginin and signup REST APIs")
 @RestController
@@ -78,7 +79,7 @@ public class AuthController {
                 request.getUsername(), request.getPassword()));
         String token = tokenProvider.generateToken(authentication);
         log.info(token);
-        return ResponseEntity.ok(new JWTAuthResponse(token,"User Created!"));
+        return ResponseEntity.ok(new JWTAuthResponse(token, user, "User Created!"));
 
     }
 
@@ -88,13 +89,20 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUsernameOrEmail(), loginDto.getPassword()));
 
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
         // get token form tokenProvider
         String token = tokenProvider.generateToken(authentication);
 
-        return ResponseEntity.ok(new JWTAuthResponse(token));
-    }
 
+        User user =userRepository.findByUsername
+                (loginDto.getUsernameOrEmail()).orElseThrow();
+
+
+        System.out.println("dsadasdasddsadasd"+ user.getId());
+
+        return ResponseEntity.ok(new JWTAuthResponse(token, loginDto,user.getId()));
+    }
 
 
 }

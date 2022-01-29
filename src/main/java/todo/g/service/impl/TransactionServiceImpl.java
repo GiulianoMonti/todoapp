@@ -1,6 +1,8 @@
 package todo.g.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import todo.g.exception.ResourceNotFoundException;
 import todo.g.model.Transaction;
@@ -23,6 +25,9 @@ public class TransactionServiceImpl implements ITransactionService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserDetailsService userDetailsService;
+
 
 //    @Override
 //    public Transaction createTransactions(Transaction transaction) {
@@ -43,7 +48,11 @@ public class TransactionServiceImpl implements ITransactionService {
         // set post to comment entity
         transaction.setUser(user);
 
+
+
         // comment entity to DB
+        System.out.println(user.getId());
+        System.out.println(user.getEmail());
 
         return transactionRepository.save(transaction);
     }

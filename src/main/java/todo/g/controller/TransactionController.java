@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import todo.g.model.Transaction;
+import todo.g.model.User;
 import todo.g.service.ITransactionService;
 
 import javax.validation.Valid;
@@ -35,6 +36,8 @@ public class TransactionController {
     @GetMapping("/transaction/{userId}")
     //     get all transactions by user id
     public List<Transaction> getTransactionByUserId(@PathVariable(value = "userId") Long userId) {
+
+
         return iTransactionService.getTransactionByUserId(userId);
     }
 
@@ -42,6 +45,8 @@ public class TransactionController {
     @PostMapping("/transaction/{userId}")
     public ResponseEntity<Transaction> createTransaction(@Valid @PathVariable(value = "userId") Long userId,
                                                     @RequestBody Transaction transaction) {
+
+
         return new ResponseEntity<>(iTransactionService.createTransaction(userId, transaction), HttpStatus.CREATED);
     }
 
