@@ -16,10 +16,11 @@ public class JWTAuthResponse {
     private Long idReturn;
 
 
-    public JWTAuthResponse(String accessToken,User user,String message) {
+    public JWTAuthResponse(String accessToken,User user,String message,Long idReturn) {
         this.accessToken = accessToken;
         this.user = user;
         this.message = message;
+        this.idReturn = idReturn;
     }
 
     public JWTAuthResponse(String accessToken,User user) {

@@ -22,3 +22,7 @@ react usando context y hooks para el front, no lo subire todavia
 <div>logged in, ADD transactions page, token localstorage+username</div>
 <img src ="src/images/transactions.png" width="500">
 
+<div></div>
+<div>logged user and transactions relationship working, app finished!</div>
+<img src ="src/images/transactions2.png" width="500">
+

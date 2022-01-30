@@ -78,8 +78,14 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getUsername(), request.getPassword()));
         String token = tokenProvider.generateToken(authentication);
+
+        User returnId =userRepository.findByUsername
+                (request.getUsername()).orElseThrow();
         log.info(token);
-        return ResponseEntity.ok(new JWTAuthResponse(token, user, "User Created!"));
+
+
+
+        return ResponseEntity.ok(new JWTAuthResponse(token, user, "User Created!", returnId.getId()));
 
     }
 
@@ -99,7 +105,7 @@ public class AuthController {
                 (loginDto.getUsernameOrEmail()).orElseThrow();
 
 
-        System.out.println("dsadasdasddsadasd"+ user.getId());
+//        System.out.println("dsadasdasddsadasd"+ user.getId());
 
         return ResponseEntity.ok(new JWTAuthResponse(token, loginDto,user.getId()));
     }
