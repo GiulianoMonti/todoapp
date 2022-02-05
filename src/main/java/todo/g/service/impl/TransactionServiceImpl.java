@@ -1,6 +1,7 @@
 package todo.g.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import todo.g.service.ITransactionService;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 
@@ -47,7 +49,8 @@ public class TransactionServiceImpl implements ITransactionService {
 
         // set post to comment entity
         transaction.setUser(user);
-
+        transaction.setCreatedAt(new Date());
+        System.out.println("dsadasdasddsadasd"+ user.getId());
 
 
         // comment entity to DB
@@ -60,7 +63,7 @@ public class TransactionServiceImpl implements ITransactionService {
     @Override
     public List<Transaction> getTransactionByUserId(Long userId) {
         // retrieve comments by postId
-        List<Transaction> transactions = transactionRepository.findByUserId(userId);
+        List<Transaction> transactions = transactionRepository.findByUserId(Sort.by("createdAt").descending(),userId);
 
         // convert list of comment entities to list of comment dto's
         return transactions;

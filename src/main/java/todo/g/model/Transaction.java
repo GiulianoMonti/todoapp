@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -21,6 +22,8 @@ public class Transaction {
     private String name;
 
     private int amount;
+
+    private Date createdAt;
 
     @JsonIgnore
     @ManyToOne(fetch= FetchType.LAZY)
